@@ -19,7 +19,9 @@ function useTimeout(fn: () => void, ms = 0, open = true): UseTimeoutFnReturn {
   }, []);
 
   const set = useCallback(() => {
-    timeout.current = open && setTimeout(() => fn?.(), ms);
+    if (open) {
+      timeout.current = setTimeout(() => fn?.(), ms);
+    }
   }, [ms, fn, open]);
 
   useEffect(() => {

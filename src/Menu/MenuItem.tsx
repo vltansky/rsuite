@@ -17,7 +17,7 @@ export interface MenuItemProps {
   ) => React.ReactElement;
 
   /** Callback when menuitem is being activated */
-  onActivate?: (event: React.SyntheticEvent) => void;
+  onActivate?: React.MouseEventHandler;
 }
 
 export interface MenuitemRenderProps {

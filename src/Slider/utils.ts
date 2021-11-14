@@ -1,6 +1,6 @@
 export const precisionMath = value => parseFloat(value.toFixed(10));
 
-export const checkValue = (value: number, min: number, max: number) => {
+export const checkValue = (value: number | undefined, min: number, max: number) => {
   if (typeof value === 'undefined') {
     return value;
   }

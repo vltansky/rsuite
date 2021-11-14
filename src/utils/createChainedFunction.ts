@@ -24,7 +24,7 @@ function createChainedFunction<T = any>(...funcs: T[]): T {
         return f;
       }
 
-      return function chainedFunction(...args: any[]) {
+      return function chainedFunction(this: any, ...args: any[]) {
         acc.apply(this, args);
         f.apply(this, args);
       };

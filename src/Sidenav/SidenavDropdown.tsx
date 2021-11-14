@@ -101,7 +101,7 @@ const SidenavDropdown: RsRefForwardingComponent<'li', SidenavDropdownProps> = Re
   } = props;
 
   const { openKeys = [], onOpenChange } = useContext(SidenavContext);
-  const { hasSelectedItem } = useContext(DropdownContext);
+  const dropdownContext = useContext(DropdownContext);
 
   const { merge, withClassPrefix } = useClassNames(classPrefix);
 
@@ -125,6 +125,14 @@ const SidenavDropdown: RsRefForwardingComponent<'li', SidenavDropdownProps> = Re
 
   const open = openProp ?? openKeys.includes(uniqueKey);
 
+  if (!dropdownContext) {
+    throw new Error(
+      '<SidenavDropdown> component is not supposed to be used standalone. Use <Dropdown> instead.'
+    );
+  }
+
+  const { hasSelectedItem } = dropdownContext;
+
   return (
     <Disclosure open={open} onToggle={handleToggleDisclosure}>
       {({ open }, containerRef) => {
@@ -141,7 +149,7 @@ const SidenavDropdown: RsRefForwardingComponent<'li', SidenavDropdownProps> = Re
 
         return (
           <Component
-            ref={mergeRefs(ref, containerRef)}
+            ref={mergeRefs(ref, containerRef as any)}
             style={style}
             className={classes}
             {...rest}

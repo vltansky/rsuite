@@ -56,7 +56,7 @@ export function shouldDisplay(label: React.ReactNode, searchKeyword: string) {
 
 interface PickerClassNameProps {
   name?: string;
-  classPrefix?: string;
+  classPrefix: string;
   className?: string;
   placement?: TypeAttributes.Placement;
   appearance?: 'default' | 'subtle';
@@ -196,7 +196,7 @@ export const useFocusItemValue = (
   } = props;
   const [focusItemValue, setFocusItemValue] = useState<any>(defaultFocusItemValue);
   const [layer, setLayer] = useState(defaultLayer);
-  const [keys, setKeys] = useState([]);
+  const [keys, setKeys] = useState<Array<string | undefined>>([]);
 
   /**
    * Get the elements visible in all options.
@@ -210,7 +210,7 @@ export const useFocusItemValue = (
     let currentKeys = keys;
     if (currentKeys.length === 0) {
       currentKeys = Array.from(menu?.querySelectorAll(focusableQueryKey))?.map(
-        (item: HTMLDivElement) => item?.dataset?.key
+        item => (item as HTMLElement)?.dataset?.key
       );
       setKeys(currentKeys);
     }
@@ -466,7 +466,7 @@ export const useToggleKeyDownEvent = (props: ToggleKeyDownEventProps) => {
 interface SearchProps {
   labelKey: string;
   data: ItemDataType[];
-  searchBy: (keyword, label, item) => boolean;
+  searchBy?: (keyword, label, item) => boolean;
   callback?: (keyword: string, data: ItemDataType[], event: React.SyntheticEvent) => void;
 }
 
